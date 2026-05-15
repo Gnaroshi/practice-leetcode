@@ -1,4 +1,4 @@
-// problem: 2782. Check if Array is Good
+// problem: 153. Find Minimum in Rotated Sorted Array
 
 #include <algorithm>
 #include <cmath>
@@ -34,23 +34,17 @@ using si = stack<int>;
 
 class Solution {
 public:
-  bool isGood(vector<int> &nums) {
-    int l = nums.size();
-    if (l < 2)
-      return false;
-
-    int n = l - 1;
-    sort(nums.begin(), nums.end());
-
-    for (int i = 0; i < n; i++) {
-      if (nums[i] != i + 1)
-        return false;
+  int findMin(vector<int> &nums) {
+    int l = 0, r = nums.size() - 1, md;
+    while (l < r) {
+      md = (l + r) / 2;
+      if (nums[md] > nums[r]) {
+        l = md + 1;
+      } else {
+        r = md;
+      }
     }
-
-    if (nums[l - 1] != n)
-      return false;
-
-    return true;
+    return nums[l];
   }
 };
 
