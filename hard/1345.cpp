@@ -79,7 +79,7 @@ public:
           vist.insert(i + 1);
           nxt.insert(i + 1);
         }
-        if (i - 1 >= n && vist.find(i - 1) == vist.end()) {
+        if (i - 1 >= 0 && vist.find(i - 1) == vist.end()) {
           vist.insert(i - 1);
           nxt.insert(i - 1);
         }
