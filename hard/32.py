@@ -11,23 +11,20 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        def chk(s: str) -> bool:
-            stk = []
-            for char in s:
-                if char == "(":
-                    stk.append("(")
-                elif stk and stk[-1] == "(":
-                    stk.pop()
-                else:
-                    return False
-            return len(stk) == 0
-
         mx = 0
-        for i in range(len(s)):
-            for j in range(i + 2, len(s) + 1, 2):
-                if chk(s[i:j]):
-                    mx = max(mx, j - i)
 
+        dp = [0] * len(s)
+        for i in range(1, len(s)):
+            if s[i] == ")":
+                if s[i - 1] == "(":
+                    dp[i] = (dp[i - 2] if i >= 2 else 0) + 2
+                elif i - dp[i - 1] > 0 and s[i - dp[i - 1] - 1] == "(":
+                    dp[i] = (
+                        dp[i - 1]
+                        + (dp[i - dp[i - 1] - 2] if i - dp[i - 1] >= 2 else 0)
+                        + 2
+                    )
+                mx = max(mx, dp[i])
         return mx
 
 
